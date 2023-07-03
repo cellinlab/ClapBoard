@@ -37,7 +37,7 @@ const ClapBoard = (props) => {
   };
 
   return (
-    <div className="w-full max-w-5xl mx-7 text-white flex flex-col">
+    <div className="w-full max-w-4xl mx-7 text-white flex flex-col">
       <div>
         <div className={`bg-black rounded-t-2xl pl-48 realtive ${isPlaying ? "" : "playing"}`}>
           <div className="rainbow-item top-rainbow-item bg-brand-green"></div>
