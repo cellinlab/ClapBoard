@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -6,10 +6,10 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { v4 as uuid } from "uuid";
 
-import { addBoard } from "../../../store/boardSlice";
+import { addBoard, updateBoard } from "../../../store/boardSlice";
 
 const EditBoardItem = (props) => {
-  const { cancel } = props;
+  const { onCancel, board } = props;
 
   const [production, setProduction] = useState("");
   const [director, setDirector] = useState("");
@@ -22,9 +22,21 @@ const EditBoardItem = (props) => {
 
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    if (board) {
+      setProduction(board.production);
+      setDirector(board.director);
+      setCamera(board.camera);
+      setRoll(board.roll);
+      setScene(board.scene);
+      setTake(board.take);
+      setNote(board.note);
+      setDate(board.date);
+    }
+  }, [board]);
+
   const handleSave = () => {
-    const board = {
-      id: uuid(),
+    const newBoard = {
       production,
       director,
       camera,
@@ -35,7 +47,13 @@ const EditBoardItem = (props) => {
       date,
     };
 
-    dispatch(addBoard(board));
+    if (board) {
+      newBoard.id = board.id;
+      dispatch(updateBoard(newBoard));
+    } else {
+      newBoard.id = uuid();
+      dispatch(addBoard(newBoard));
+    }
 
     handleCancel();
   };
@@ -50,7 +68,7 @@ const EditBoardItem = (props) => {
     setNote("");
     setDate(new Date().toLocaleDateString());
 
-    cancel();
+    onCancel();
   };
 
   return (

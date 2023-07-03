@@ -25,7 +25,7 @@ const Boardlist = () => {
 
   return (
     <div className="h-full flex justify-center items-center">
-      <div className="w-full mx-7 max-w-5xl min-h-1/2 px-4 bg-gray-100 rounded-2xl flex flex-col">
+      <div className="w-full mx-7 max-w-5xl min-h-1/2 p-4 bg-gray-100 rounded-2xl flex flex-col">
         <Stack direction="row" justifyContent="flex-end" spacing={2} className="my-3">
           <Button className="" variant="contained" startIcon={<AddIcon />} onClick={handleAdd}>
             Add
@@ -39,7 +39,7 @@ const Boardlist = () => {
         </Stack>
         <Divider />
         <div className="mt-2">
-          {isEdit && <EditBoardItem cancel={handleCancelEdit} />}
+          {isEdit && <EditBoardItem onCancel={handleCancelEdit} />}
           {boardList && boardList.length > 0 ? (
             boardList.map((board) => <BoardItem key={board.id} board={board} />)
           ) : (
